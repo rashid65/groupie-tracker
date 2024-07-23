@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <title>{{ .Name }}</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #333333, #121212);
+        }
+
+        .Header {
+            position: sticky;
+            top: 0;
+            background: #1a1a1a;
+            justify-content: space-between;
+            padding: 20px 0;
+            text-align: center;
+            transition: padding 0.3s ease, background 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .title {
+            color: #CCCCCC;
+            font-size: 30px;
+            font-weight: bold;
+            margin: 0;
+            flex: 1;
+            text-align: center;
+        }
+
+        .output-card {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            background-color: #1a1a1a;
+            border: 1px solid #444444;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            max-width: 1200px;
+            margin: 20px auto;
+            color: #CCCCCC;
+            overflow: hidden;
+            gap: 20px;
+        }
+
+        .artist-image {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        .artist-image:hover {
+            transform: scale(1.05);
+            filter: brightness(1.2);
+        }
+
+        .details {
+            display: grid;
+            grid-template-columns: 2fr 3fr;
+            gap: 20px;
+        }
+
+        .details div {
+            background-color: #2a2a2a;
+            padding: 20px;
+            border-radius: 10px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .details h2 {
+            color: #FF7300;
+            margin-top: 0;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
+
+        ul li::before {
+            content: '• ';
+            color: #FF7300;
+        }
+
+        .relation-item {
+            margin-bottom: 20px;
+        }
+
+        .relation-item ul {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+        .card-button{
+            margin: 0px; /* Adjust margin as needed */
+            padding: 15px 20px; /* Adjust padding for button size */
+            background-color: #444444;
+            border: none;
+            outline: none;
+            color: #FFF;
+            cursor: pointer;
+            border-radius: 12px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            position: absolute; /* Position absolutely within the .Header */
+            left: 20px; /* Adjust left positioning as needed */
+            top: 20px; /* Adjust top positioning as needed */
+        }
+    </style>
+</head>
+<body>
+    <div class="Header">
+        <button type="button" class="card-button" onclick="goBack()">Go Back</button>
+        <h1 class="title">{{ .Name }}</h1>
+    </div>
+    <div class="output-card">
+        <img src="{{ .Image }}" alt="{{ .Name }}" class="artist-image">
+        <div class="details">
+            <div>
+                <h2>Members</h2>
+                <ul>
+                    {{ range .Members }}
+                    <li>{{ . }}</li>
+                    {{ end }}
+                </ul>
+                <br />
+                <h2>Details</h2>
+                <p><b>Creation Date:</b> {{ .Creation }}</p>
+                <p><b>First Album:</b> {{ .FirstAlbum }}</p>
+            </div>
+            <div>
+                <h2>Locations & Concert Dates</h2>
+                {{ range $location, $dates := .Relations }}
+                <div class="relation-item">
+                    <strong>{{ $location }}</strong>
+                    <ul>
+                        {{ range $dates }}
+                        <li>{{ . }}</li>
+                        {{ end }}
+                    </ul>
+                </div>
+                {{ end }}
+            </div>
+        </div>
+    </div>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

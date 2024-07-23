@@ -1,0 +1,38 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #333333, #121212);
+    color: #CCCCCC; /* Default text color */
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+h3 {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+a {
+    color: #FF7300;
+    text-decoration: none;
+    border-bottom: 1px solid #FF7300;
+    transition: border-color 0.3s ease;
+}
+
+a:hover {
+    border-color: transparent;
+}
